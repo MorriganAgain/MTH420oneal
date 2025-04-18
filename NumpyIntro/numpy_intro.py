@@ -1,8 +1,8 @@
 # numpy_intro.py
 """Python Essentials: Intro to NumPy.
-<Name>
-<Class>
-<Date>
+<Finian O'Neal>
+<MTH 420>
+<4/18/25>
 """
 
 import numpy as np
@@ -10,12 +10,23 @@ import numpy as np
 
 def prob1():
     """ Define the matrices A and B as arrays. Return the matrix product AB. """
-    raise NotImplementedError("Problem 1 Incomplete")
+    
+    A = np.array([[3, -1, 4], 
+                 [1, 5, 9]])
+    B = np.array([[2, 6, -5, 3], 
+                 [5, -8, 9, 7],
+                 [9, -3, -2, -3]])
+    
+    return A @ B
 
 
 def prob2():
     """ Define the matrix A as an array. Return the matrix -A^3 + 9A^2 - 15A. """
-    raise NotImplementedError("Problem 2 Incomplete")
+    
+    A = np.array([[3, 1, 4],
+                  [1, 5, 9],
+                  [-5, 3, 1]])
+    return -1 * (A @ A @ A) + 9 * (A @ A) - 15 * A
 
 
 def prob3():
@@ -23,7 +34,10 @@ def prob3():
     this section of the manual (not np.array()). Calculate the matrix product ABA,
     change its data type to np.int64, and return it.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    base = np.ones([7, 7])
+    A = np.triu(base)
+    B = 5 * np.triu(base, 1) + -1 * np.tril(base)
+    return (A @ B @ A).astype(np.int64)
 
 
 def prob4(A):
@@ -35,7 +49,11 @@ def prob4(A):
         >>> prob4(A)
         array([0, 0, 3])
     """
-    raise NotImplementedError("Problem 4 Incomplete")
+    
+    A_copy = np.copy(A)
+    A_copy[np.where(A_copy < 0)] = 0
+    
+    return A_copy
 
 
 def prob5():
@@ -47,7 +65,15 @@ def prob5():
     where I is the 3x3 identity matrix and each 0 is a matrix of all zeros
     of the appropriate size.
     """
-    raise NotImplementedError("Problem 5 Incomplete")
+    
+    A = np.array([[0, 2, 4],
+                  [1, 3, 5]])
+    B = np.array([[3, 0, 0], 
+                  [3, 3, 0],
+                  [3, 3, 3]])
+    C = 3 * np.diag(np.ones([3, 3]))
+    
+    pass
 
 
 def prob6(A):
@@ -70,3 +96,12 @@ def prob7():
     diagonally) in the grid. Use slicing, as specified in the manual.
     """
     raise NotImplementedError("Problem 7 Incomplete")
+
+if __name__ == "__main__":
+    print(prob1())
+    print(prob2())
+    print(prob3())
+    
+    A = np.array([[-3, -1, 4], 
+                 [1, 5, 9]])
+    print(prob4(A))

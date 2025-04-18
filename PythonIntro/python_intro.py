@@ -129,7 +129,6 @@ def alt_harmonic(n):
     
     n_list = [((-1)**(i+1)/i) for i in range(1,n+1)]
     alt_harmonic = sum(n_list)
-    
     return alt_harmonic
 
 if __name__ == "__main__":
