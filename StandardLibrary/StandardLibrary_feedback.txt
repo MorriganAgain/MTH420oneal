@@ -1,0 +1,39 @@
+04/25/25 21:45
+
+Problem 1 (15 points):
+Score += 15
+
+Problem 2 (15 points):
+Incorrect response(s)
+(Hint: 3 are immutable and 2 are mutable)
+Score += 0
+
+Problem 3 (10 points):
+hypot() may only use 'calculator' functions.
+Score += 5
+
+Problem 4 (10 points):
+	power_set(A) does not contain set() (the empty set)
+	power_set(A) does not contain set(A)
+	len(power_set(A)) != 2**len(A)
+	Elements of power_set(A) are type <class 'list'>, not set
+	power_set(A) does not contain set() (the empty set)
+	power_set(A) does not contain set(A)
+	len(power_set(A)) != 2**len(A)
+	Elements of power_set(A) are type <class 'list'>, not set
+	power_set(A) does not contain set() (the empty set)
+	power_set(A) does not contain set(A)
+	len(power_set(A)) != 2**len(A)
+	Elements of power_set(A) are type <class 'list'>, not set
+	power_set(A) does not contain set() (the empty set)
+	power_set(A) does not contain set(A)
+	len(power_set(A)) != 2**len(A)
+	Elements of power_set(A) are type <class 'list'>, not set
+Score += 0
+
+Total score: 20/50 = 40.0%
+
+Linter Notes: None
+
+-------------------------------------------------------------------------------
+
