@@ -71,9 +71,11 @@ def prob5():
     B = np.array([[3, 0, 0], 
                   [3, 3, 0],
                   [3, 3, 3]])
-    C = 3 * np.diag(np.ones([3, 3]))
+    C = -2 * np.identity(3)
     
-    pass
+    top = np.vstack([np.hstack([np.zeros([3, 3]), A.T, np.identity(3)]), np.hstack([A, np.zeros([2, 2]), np.zeros([2, 3])])])
+    bottom = np.hstack([B, np.zeros([3, 2]), C])
+    return np.vstack([top, bottom])
 
 
 def prob6(A):
@@ -87,7 +89,9 @@ def prob6(A):
                [ 0.        ,  1.        ,  0.        ],
                [ 0.33333333,  0.33333333,  0.33333333]])
     """
-    raise NotImplementedError("Problem 6 Incomplete")
+    
+    row_sums = np.sum(A, 1)
+    return A / row_sums[:, None]
 
 
 def prob7():
@@ -105,3 +109,7 @@ if __name__ == "__main__":
     A = np.array([[-3, -1, 4], 
                  [1, 5, 9]])
     print(prob4(A))
+    print(prob5())
+    B = np.array([[1,1,0],[0,1,0],[1,1,1]])
+    print(B)
+    print(prob6(B))
