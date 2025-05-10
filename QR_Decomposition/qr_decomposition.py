@@ -1,8 +1,8 @@
 # qr_decomposition.py
 """Volume 1: The QR Decomposition.
-<Name>
-<Class>
-<Date>
+<Finian O'Neal>
+<MTH 420>
+<5/9/25>
 """
 
 import numpy as np
@@ -20,7 +20,20 @@ def qr_gram_schmidt(A):
         Q ((m,n) ndarray): An orthonormal matrix.
         R ((n,n) ndarray): An upper triangular matrix.
     """
-    raise NotImplementedError("Problem 1 Incomplete")
+    
+    m, n = np.shape(A)
+    Q = np.copy(A)
+    R = np.zeros((n, n))
+    
+    for i in range(0, n):
+        R[i, i] = la.norm(Q[:, i])
+        Q[:, i] = Q[:, i] / R[i, i]
+        
+        for j in range(i+1, n):
+            R[i, j] = Q[:, j].T @ Q[:, i]
+            Q[:, j] = Q[:, j] - R[i, j] * Q[:, i]
+    
+    return Q, R
 
 
 # Problem 2
@@ -34,7 +47,7 @@ def abs_det(A):
     Returns:
         (float) the absolute value of the determinant of A.
     """
-    raise NotImplementedError("Problem 2 Incomplete")
+    return np.prod(np.diag(qr_gram_schmidt(A)[1]))
 
 
 # Problem 3
@@ -48,7 +61,16 @@ def solve(A, b):
     Returns:
         x ((n, ) ndarray): The solution to the system Ax = b.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    m, n = np.shape(A)
+    Q, R = qr_gram_schmidt(A)
+    y = Q.T @ b
+    x = np.zeros(np.shape(b))
+    x[n-1] = y[n-1] / R[n-1, n-1]
+    for i in range(n, 0, -1 ):
+        x[i-1] = (y[i-1] - np.sum(R[i-1,i:] @ x[i:])) / R[i-1, i-1]
+        
+    return x
+    
 
 
 # Problem 4
@@ -78,3 +100,4 @@ def hessenberg(A):
         Q ((n,n) ndarray): An orthonormal matrix.
     """
     raise NotImplementedError("Problem 5 Incomplete")
+
