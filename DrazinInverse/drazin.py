@@ -1,8 +1,8 @@
 # drazin.py
 """Volume 1: The Drazin Inverse.
-<Name>
-<Class>
-<Date>
+<Finian O'Neal>
+<MTH 420>
+<5/15/25>
 """
 
 import numpy as np
@@ -50,7 +50,14 @@ def is_drazin(A, Ad, k):
     Returns:
         (bool) True of Ad is the Drazin inverse of A, False otherwise.
     """
-    raise NotImplementedError("Problem 1 Incomplete")
+    
+    cond_1 = np.allclose(A @ Ad, Ad @ A)
+    cond_2 = np.allclose(np.linalg.matrix_power(A, k+1) @ Ad, np.linalg.matrix_power(A, k))
+    cond_3 = np.allclose(Ad @ A @ Ad, Ad)
+    
+    if cond_1 and cond_2 and cond_3:
+        return True
+    return False
 
 
 # Problem 2
@@ -63,7 +70,35 @@ def drazin_inverse(A, tol=1e-4):
     Returns:
        ((n,n) ndarray) The Drazin inverse of A.
     """
-    raise NotImplementedError("Problem 2 Incomplete")
+    
+    n, n = np.shape(A)
+    Z = np.zeros((n, n))
+    f_1 = lambda x: abs(x) > 0
+    f_2 = lambda x: abs(x) <= 0
+    T_1, Q_1, k_1 = la.schur(A, sort=f_1)
+    T_2, Q_2, k_2 = la.schur(A, sort=f_2)
+    U = np.concatenate([Q_1[:, :k_1], Q_2[:, :n-k_1]], 1)
+    U_inv = la.inv(U)
+    V = U_inv @ A @ U
+    
+    if np.isclose(k_1, 0, tol) == False:
+        M_inv = la.inv(V[:k_1, :k_1])
+        Z[:k_1, :k_1] = M_inv 
+    
+    return U @ Z @ U_inv
+
+def laplacian(A):
+    """Compute the Laplacian matrix of the adjacency matrix A,
+    as well as the second smallest eigenvalue.
+
+    Parameters:
+        A ((n,n) ndarray) adjacency matrix for an undirected weighted graph.
+
+    Returns:
+        L ((n,n) ndarray): the Laplacian matrix of A
+    """
+    D = A.sum(axis=1)    # The degree of each vertex (either axis).
+    return np.diag(D) - A
 
 
 # Problem 3
@@ -77,7 +112,23 @@ def effective_resistance(A):
         ((n,n) ndarray) The matrix where the ijth entry is the effective
         resistance from node i to node j.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    
+    n, n = np.shape(A)
+    L = laplacian(A)
+    I = np.identity(n)
+    R = np.zeros((n, n))
+    
+    for row in range(0, n):
+        L_tilda = np.copy(L)
+        L_tilda[row, :] = I[row, :]
+        R_val = drazin_inverse(L_tilda)
+        
+        for col in range(0, n):
+            if row == col:
+                R[row, col] = 0
+            else:
+                R[row, col] = R_val[col, col]
+    return R
 
 
 # Problems 4 and 5
@@ -110,7 +161,7 @@ class LinkPredictor:
         Raises:
             ValueError: If node is not in the graph.
         """
-        raise NotImplementedError("Problem 5 Incomplete"
+        raise NotImplementedError("Problem 5 Incomplete")
 
 
     def add_link(self, node1, node2):
@@ -125,3 +176,23 @@ class LinkPredictor:
             ValueError: If either node1 or node2 is not in the graph.
         """
         raise NotImplementedError("Problem 5 Incomplete")
+
+A = np.array([[1, 3, 0, 0],
+              [0, 1, 3, 0],
+              [0, 0, 1, 3],
+              [0, 0, 0, 0]])
+Ad = np.array([[1, -3, 9, 81],
+              [0, 1, -3, -18],
+              [0, 0, 1, 3],
+              [0, 0, 0, 0]])
+k=1
+
+test = np.array([[0, 1, 0, 0],
+              [1, 0, 1, 0],
+              [0, 1, 0, 1],
+              [0, 0, 1, 0]])
+test2 = np.array([[0, 1, 1], 
+                  [1, 0, 1],
+                  [1, 1, 0]])
+
+print(effective_resistance(test2))
