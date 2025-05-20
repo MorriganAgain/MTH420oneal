@@ -1,8 +1,8 @@
 # lstsq_eigs.py
 """Volume 1: Least Squares and Computing Eigenvalues.
-<Name>
-<Class>
-<Date>
+<Finian O'Neal>
+<MTH 420>
+<5/19/25>
 """
 
 import numpy as np
@@ -23,7 +23,10 @@ def least_squares(A, b):
     Returns:
         x ((n, ) ndarray): The solution to the normal equations.
     """
-    raise NotImplementedError("Problem 1 Incomplete")
+    
+    Q, R = la.qr(A, mode='economic')
+    return la.solve_triangular(R, Q.T @ b)
+    
 
 # Problem 2
 def line_fit():
@@ -31,7 +34,22 @@ def line_fit():
     index for the data in housing.npy. Plot both the data points and the least
     squares line.
     """
-    raise NotImplementedError("Problem 2 Incomplete")
+    
+    data = np.load("LeastSquares_Eigenvalues/housing.npy")
+    m, n = np.shape(data)
+    A = np.ones([m, n])
+    x = data[:, 0]
+    y = data[:, 1]
+    A[:, 0] = x
+    b = data[:, 1]
+    fit = least_squares(A, b)
+    y_fit = x * fit[0] + fit[1]
+    
+    fig, axs = plt.subplots()
+    axs.scatter(x, y)
+    axs.plot(x, y_fit)
+    
+    plt.show()
 
 
 # Problem 3
@@ -40,7 +58,29 @@ def polynomial_fit():
     the year to the housing price index for the data in housing.npy. Plot both
     the data points and the least squares polynomials in individual subplots.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    
+    data = np.load("LeastSquares_Eigenvalues/housing.npy")
+    x, y = data[:, 0], data[:, 1]
+    x_smooth = np.linspace(x[0], x[-1], 1000)
+    
+    fig, axs = plt.subplots(4)
+    
+    degrees = [3, 6, 9, 12]
+    
+    for i, degree in enumerate(degrees):
+        vander = np.vander(x, degree)
+        fit = np.poly1d(la.lstsq(vander, y)[0])
+        
+        axs[i].scatter(x, y, color='red', marker='x',label='Data')
+        axs[i].plot(x_smooth, fit(x_smooth), label=f' Degree {degree} Curve Fit')
+        axs[i].spines['top'].set_visible(False)
+        axs[i].spines['right'].set_visible(False)
+        axs[i].legend()   
+    fig.suptitle("Purchase-Only Housing Price Index by Year")
+    fig.supxlabel("Years since 2000")
+    fig.supylabel("Price Index")
+    plt.show()
+
 
 
 def plot_ellipse(a, b, c, d, e):
@@ -60,7 +100,14 @@ def ellipse_fit():
     ellipse.npy. Plot the original data points and the ellipse together, using
     plot_ellipse() to plot the ellipse.
     """
-    raise NotImplementedError("Problem 4 Incomplete")
+
+    ellipse_data = np.load("LeastSquares_Eigenvalues/ellipse.npy")
+    x, y = ellipse_data[:, 0], ellipse_data[:, 1]
+    degree = 5
+    vander = np.vander(x, degree)
+    fit = la.lstsq(vander, y)[0]
+    plot_ellipse(1, 1, 2, 1, 1)
+    plt.show()
 
 
 # Problem 5
@@ -95,3 +142,5 @@ def qr_algorithm(A, N=50, tol=1e-12):
         ((n,) ndarray): The eigenvalues of A.
     """
     raise NotImplementedError("Problem 6 Incomplete")
+
+ellipse_fit()
