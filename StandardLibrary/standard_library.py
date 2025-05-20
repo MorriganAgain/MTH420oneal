@@ -6,6 +6,7 @@
 """
 
 from math import sqrt
+import calculator
 from itertools import combinations
 
 
@@ -79,7 +80,7 @@ def hypot(a, b):
     Returns:
         The length of the triangle's hypotenuse.
     """
-    return sqrt(a**2 + b**2)
+    return sqrt(calculator.sum(a**2, b**2))
 
 
 # Problem 4
@@ -94,7 +95,7 @@ def power_set(A):
     """
     power_set = []
     for i in range(len(A)+1):
-        power_set.append(list(combinations(A, i)))
+        power_set.append(set(combinations(A, i)))
 
     return power_set
 
@@ -104,7 +105,6 @@ def shut_the_box(player, timelimit):
     raise NotImplementedError("Problem 5 Incomplete")
 
 if __name__ == "__main__":
-    print(prob1([1,2,3]))
-    print(prob2())
+    #print(prob2())
     print(power_set("ABC"))
     
