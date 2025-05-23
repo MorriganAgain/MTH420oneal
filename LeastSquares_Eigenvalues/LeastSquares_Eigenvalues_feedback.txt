@@ -4,3 +4,9 @@ lstsq_eigs.py has not been modified yet
 
 -------------------------------------------------------------------------------
 
+05/23/25 15:01
+
+FileNotFoundError while loading 'lstsq_eigs.py': [Errno 2] No such file or directory: 'LeastSquares_Eigenvalues/ellipse.npy'
+
+-------------------------------------------------------------------------------
+
