@@ -115,9 +115,9 @@ def prob4():
     """
     
     x = cp.Variable(3)
-    Q = np.array([[3, 1, 0.5], 
-                  [1, 4, 1],
-                  [0.5, 1, 3]])
+    Q = np.array([[3, 2, 1], 
+                  [2, 4, 2],
+                  [1, 2, 3]])
     r = np.array([3, 0, 1])
     
     problem = cp.Problem(cp.Minimize(0.5 * cp.quad_form(x, Q) + r.T @ x))
@@ -174,4 +174,5 @@ def prob6():
 A = np.array([[1, 2, 1, 1], 
               [0, 3, -2, -1]])
 b = np.array([7, 4])
-print(prob5(A, b))
+#print(prob5(A, b))
+print(prob4())
