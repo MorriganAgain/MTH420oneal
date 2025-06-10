@@ -177,7 +177,7 @@ class LinkPredictor:
         """
         raise NotImplementedError("Problem 5 Incomplete")
 
-A = np.array([[1, 3, 0, 0],
+"""A = np.array([[1, 3, 0, 0],
               [0, 1, 3, 0],
               [0, 0, 1, 3],
               [0, 0, 0, 0]])
@@ -195,4 +195,11 @@ test2 = np.array([[0, 1, 1],
                   [1, 0, 1],
                   [1, 1, 0]])
 
-print(effective_resistance(test2))
+print(effective_resistance(test2))"""
+
+A = np.array([[ 10,  -8,   6,  -3,],
+                [ 12, -10,   8,  -4,],
+                [  1,  -1,   1,   0,],
+                [ -2,   2,  -2,   2]])
+print(drazin_inverse(A))
+

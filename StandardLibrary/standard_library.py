@@ -65,7 +65,7 @@ def prob2():
     else:
         mutability["sets"] = False
     
-    return mutability
+    print(mutability)
 
 
 # Problem 3
@@ -80,7 +80,7 @@ def hypot(a, b):
     Returns:
         The length of the triangle's hypotenuse.
     """
-    return sqrt(calculator.sum(a**2, b**2))
+    return calculator.sqrt(calculator.sum(a**2, b**2))
 
 
 # Problem 4
@@ -95,7 +95,13 @@ def power_set(A):
     """
     power_set = []
     for i in range(len(A)+1):
-        power_set.append(set(combinations(A, i)))
+        if i == 0:
+            power_set.append(set())
+        
+        else:
+            items = combinations(A, i)
+            for item in items:
+                power_set.append(set(item))
 
     return power_set
 
@@ -107,4 +113,5 @@ def shut_the_box(player, timelimit):
 if __name__ == "__main__":
     #print(prob2())
     print(power_set("ABC"))
+    print(len(power_set("ABC")))
     

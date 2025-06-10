@@ -115,7 +115,7 @@ def prob4():
     """
     
     x = cp.Variable(3)
-    Q = np.array([[3, 1, 0.5],
+    Q = np.array([[3, 1, 0.5], 
                   [1, 4, 1],
                   [0.5, 1, 3]])
     r = np.array([3, 0, 1])
