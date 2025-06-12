@@ -71,3 +71,26 @@ Linter Notes: None
 
 -------------------------------------------------------------------------------
 
+06/12/25 21:35
+
+Problem 1 (15 points):
+Score += 15
+
+Problem 2 (15 points):
+Score += 15
+
+Problem 3 (10 points):
+need to use product from calculator
+Score += 9
+
+Problem 4 (10 points):
+Score += 10
+
+Total score: 49/50 = 98.0%
+
+Excellent!
+
+Linter Notes: None
+
+-------------------------------------------------------------------------------
+
